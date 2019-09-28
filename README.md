@@ -1,5 +1,5 @@
 # tradeassistant
 Alım ve satımlarınızı kaydeder ve yönetir.
 # LOG
-
-sudo apt-get install python3-pil python3-pil.imagetk
+            firstIndex = self.listBox.curselection()[0]
+            self.value = self.list[int(firstIndex)]
