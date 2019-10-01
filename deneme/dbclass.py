@@ -4,12 +4,12 @@ class Database():
   def __init__(self,):
     self.load()
     self.hata = False
+
   def load(self,):
-    with sqlite.connect("yeni.sqlite") as self.db:
+    with sqlite3.connect("yeni.sqlite") as self.db:
       self.im = self.db.cursor()
-
-      self.im.execute("""CREATE TABLE IF NOT EXISTS urunler """)
-
+      self.im.execute("""CREATE TABLE IF NOT EXISTS urunler (isim,alimfiyat,kargo)""")
+      self.db.commit
   def add(self,isim,fiyat,kargo):
     self.im.execute("""SELECT * FROM urunler WHERE isim =?""",
     (isim,))
@@ -19,26 +19,31 @@ class Database():
       self.hata = True
       self.info = "Ürün zaten bulunmakta !"
     else:
-      elf.im.execute("""INSERT INTO urunler VALUES (?,?,?)"""
-    ,(isim,fiyat,kargo,)   
-    self.info = "Ürün başarıyla eklendi"
+      self.im.execute("""INSERT INTO urunler VALUES (?,?,?)"""
+    ,(isim,fiyat,kargo,))
+      self.db.commit   
+      self.info = "Ürün başarıyla eklendi"
 
   def listall(self,):
-    self.laod()
+    self.load()
     self.im.execute("""SELECT * FROM urunler""")
     self.veriler = self.im.fetchall()
     print(self.veriler)
 
   def search(self,x):
-        self.im.execute("""SELECT kargo FROM tab WHERE isim = ?""" ,(x,) )
+        self.im.execute("""SELECT kargo FROM urunler WHERE isim = ?""" ,(x,) )
         self.veriler = str(self.im.fetchone()).replace("('", "").replace("',)","").capitalize()
 
         print(self.veriler)
 
-vt = DataBase()
+vt = Database()
 
 vt.add("Bmw","10","yolda")
 vt.add("Mercedes","120","yok")
 vt.add("Fluence","120","var")
 
 vt.listall()
+
+print("*" * 60)
+
+vt.search("Bmw")
