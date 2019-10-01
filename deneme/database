@@ -1,0 +1,53 @@
+import sqlite3
+
+def urunekle():
+    global name
+    global fiyat
+    global kargo
+    name = str(input("Ürün adı giriniz : \n"))
+    fiyat = 50
+    kargo = "yolda"
+
+with sqlite3.connect("yeni.sqlite") as vt:
+  im = vt.cursor()
+  im.execute("""CREATE TABLE IF NOT EXISTS tab (isim,alimfiyat,kargo)""")
+  urunekle()
+  im.execute("""SELECT * FROM tab WHERE
+  isim = ?""", (name,))
+
+  data = im.fetchone()
+  if data:
+        print("ÜRÜN ZATEN BULUNMAKTA")
+        print(data)
+        urunekle()
+
+  else:
+
+     im.execute(""" INSERT INTO tab VALUES (?, ?,?)""",(name,fiyat,kargo))
+     vt.commit()
+     print(data)
+     urunekle()    
+
+def listall():
+  with sqlite3.connect(":memory:") as vt:
+    im.execute("""SELECT * FROM tab """)
+    veriler = im.fetchall()
+    print(veriler)
+def sorgula(x):
+   with sqlite3.connect(":memory:") as vt:
+      im.execute("""SELECT * FROM tab WHERE 
+                              isim = ? """,(x,))
+      datta = im.fetchone()
+      if datta:
+        im.execute("""SELECT kargo FROM tab WHERE isim = ?"""
+        ,(x,) )
+        veri = im.fetchone()
+        veriler = str(veri).replace("('", "").replace("',)","").capitalize()
+        print(veriler)
+listall()
+while 1:
+
+  sorgu = str(input("hangi urun ?"))
+  sorgula(sorgu)
+
+
