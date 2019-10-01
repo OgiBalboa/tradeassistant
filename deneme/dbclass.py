@@ -34,3 +34,11 @@ class Database():
         self.veriler = str(self.im.fetchone()).replace("('", "").replace("',)","").capitalize()
 
         print(self.veriler)
+
+vt = DataBase()
+
+vt.add("Bmw","10","yolda")
+vt.add("Mercedes","120","yok")
+vt.add("Fluence","120","var")
+
+vt.listall()
