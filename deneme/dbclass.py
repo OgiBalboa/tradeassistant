@@ -25,7 +25,6 @@ class Database():
       self.info = "Ürün başarıyla eklendi"
 
   def listall(self,):
-    self.load()
     self.im.execute("""SELECT * FROM urunler""")
     self.veriler = self.im.fetchall()
     print(self.veriler)
