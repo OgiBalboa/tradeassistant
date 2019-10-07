@@ -1,7 +1,7 @@
 # tradeassistant
 Alım ve satımlarınızı kaydeder ve yönetir.
 # LOG
-...
+```python
 """
 Datafinder Menu
 
@@ -9,6 +9,7 @@ Datafinder Menu
 import time 
 def line():
   print("*" * 50)
+  
 def Menu():
   global secim
   print("Menu")
@@ -16,8 +17,8 @@ def Menu():
   print(menu)
   line()
   secim = int(input())
+  
   if secim == 1:
-    #time.start()
     tim = time.time()
     time.sleep(1)
     fark = time.time()-tim
@@ -26,4 +27,4 @@ def Menu():
     Menu()
 
 Menu()
-...
+```
